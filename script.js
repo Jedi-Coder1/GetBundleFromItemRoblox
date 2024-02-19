@@ -1,13 +1,13 @@
 var StartBtn = document.getElementById('start')
-var input = document.getElementById('input')
+var InputText = document.getElementById('input')
 var ResponseDiv = document.getElementById('ResponseDiv')
 
 StartBtn.addEventListener('click', function() {
-    var value = input.value
-    if (isNaN(value)) {
+    var InputValue = InputText.value
+    if (isNaN(InputValue)) {
         alert("Value Can Only Be Numbers")
     } else {
-        console.log(`Download Triggered With: ${value}`)
+        console.log(`Download Triggered With: ${InputValue}`)
         var xhttp = new XMLHttpRequest();
         xhttp.onload = function() {
             if (this.readyState == 4 && this.status == 200) {
@@ -23,7 +23,7 @@ StartBtn.addEventListener('click', function() {
                 }
             }
         };
-        xhttp.open("GET", `https://catalog.roproxy.com/v1/assets/${value}/bundles`, true);
+        xhttp.open("GET", `https://catalog.roproxy.com/v1/assets/${InputValue}/bundles`, true);
         xhttp.send(null);
     }
 });
