@@ -9,12 +9,18 @@ StartBtn.addEventListener('click', function() {
     } else {
         console.log(`Download Triggered With: ${value}`)
         var xhttp = new XMLHttpRequest();
-        xhttp.onreadystatechange = function() {
+        xhttp.onload = function() {
             if (this.readyState == 4 && this.status == 200) {
                 var jsonData = JSON.parse(xhttp.responseText)
                 var contentData = jsonData["data"][0]
                 console.log(contentData["id"])
-                console.log(xhttp.responseText)
+                ResponseDiv.appendChild(document.createTextNode(`bundle id: ${contentData["id"]} creator name: ${contentData["creator"]["name"]}`))
+                ResponseDiv.setAttribute("style", "")
+            } else {
+                var invalid = "Invalid assetId"
+                if (this.status == 400 && xhttp.responseText.includes(invalid)) {
+                    alert(invalid)
+                }
             }
         };
         xhttp.open("GET", `https://catalog.roproxy.com/v1/assets/${value}/bundles`, true);
